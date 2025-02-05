@@ -1,10 +1,21 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
-    node: true,
-    'vue/setup-compiler-macros': true
+    node: true
   },
+  overrides: [
+    {
+      env: {
+        node: true
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script'
+      }
+    }
+  ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -13,16 +24,16 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:prettier/recommended'
   ],
-  parser: 'vue-eslint-parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    parser: '@typescript-eslint/parser',
-    sourceType: 'module'
-  },
-  plugins: ['vue', '@typescript-eslint'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'src/assets'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['react-refresh', '@typescript-eslint', 'react', 'prettier'],
   rules: {
-    'vue/multi-word-component-names': 0,
-    'no-unused-vars': 'off',
-    'no-undef': 'off'
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    '@typescript-eslint/no-explicit-any': ['warn']
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
   }
 };
