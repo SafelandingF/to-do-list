@@ -1,0 +1,5 @@
+/* 取消原有的样式 */
+.--myself-checkbox-container input[type='checkbox'] {
+  /* visibility: hidden;
+  display: none; */
+}

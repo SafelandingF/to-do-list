@@ -1,9 +1,11 @@
 import { Smile } from 'lucide-react';
+import { CheckBox } from './components/base-components/CheckBox/CheckBox';
 
 function App() {
   return (
     <>
-      <Smile size={50}></Smile>
+      <CheckBox size={100} color="#0fffff" disable={true}></CheckBox>
+      <CheckBox size={100} color="#0fffff" disable={true}></CheckBox>
     </>
   );
 }
