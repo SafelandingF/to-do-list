@@ -19,6 +19,7 @@ export const validateColorString: (str: string) => boolean = (str) => {
   return false;
 };
 
+// 是不是应该使用em做单位呢
 export const handleSizeString: (input: string | number) => string = (input) => {
   if (typeof input === 'number') {
     return input.toString() + 'px';
