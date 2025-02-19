@@ -9,7 +9,7 @@ const windowsCustomConfig: Electron.BrowserWindowConstructorOptions = {
   // width: 800,
   // height: 800,
 
-  //frame == false 设置无边框
+  //frame == false 设置无边框 外面黑色的一圈线
   // frame: false,
   // titleBarStyle: 'hidden',
   webPreferences: {
@@ -27,6 +27,10 @@ app.on('ready', () => {
     mainWindow.loadFile('./dist/index.html');
   }
   ipcMainOn('sendFrameAction', handleSendFrameAction(mainWindow));
+
+  mainWindow.on('closed', () => {
+    electron.ipcMain.removeAllListeners('sendFrameAction');
+  });
 });
 
 const handleSendFrameAction = (mainWindow: BrowserWindow) => {
@@ -43,6 +47,9 @@ const handleSendFrameAction = (mainWindow: BrowserWindow) => {
       case 'close': {
         mainWindow.close();
         break;
+      }
+      case 'toggleDevtools': {
+        mainWindow.webContents.toggleDevTools();
       }
     }
   };
