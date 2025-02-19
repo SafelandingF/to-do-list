@@ -13,3 +13,5 @@ const ipcRendererSend = <Key extends keyof EventPayLoadMapping>(
 ) => {
   electron.ipcRenderer.send(key, palyLoad);
 };
+
+// const ipcPendererInvoke =

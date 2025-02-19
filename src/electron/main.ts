@@ -6,7 +6,12 @@ import electron from 'electron';
 const windowsCustomConfig: Electron.BrowserWindowConstructorOptions = {
   // tansparent: true,可以使整个窗口变透明 只显示内容
   // transparent: true,
-  titleBarStyle: 'hidden',
+  // width: 800,
+  // height: 800,
+
+  //frame == false 设置无边框
+  // frame: false,
+  // titleBarStyle: 'hidden',
   webPreferences: {
     preload: getPreloadPath()
     // 为渲染进程提供node能力
@@ -21,8 +26,28 @@ app.on('ready', () => {
   } else {
     mainWindow.loadFile('./dist/index.html');
   }
-  ipcMainOn('sendFrameAction', (payload) => void 0);
+  ipcMainOn('sendFrameAction', handleSendFrameAction(mainWindow));
 });
+
+const handleSendFrameAction = (mainWindow: BrowserWindow) => {
+  const _handle = (_payload: frameWindowAction) => {
+    switch (_payload) {
+      case 'maximize': {
+        mainWindow.maximize();
+        break;
+      }
+      case 'minimize': {
+        mainWindow.minimize();
+        break;
+      }
+      case 'close': {
+        mainWindow.close();
+        break;
+      }
+    }
+  };
+  return _handle;
+};
 
 // 这里自己封装主要是做类型约束的
 const ipcMainOn = <Key extends keyof EventPayLoadMapping>(
