@@ -8,7 +8,7 @@ type KeyboardKey =
   | 'Shift'
   | 'Alt';
 
-interface ShorcutsBind {
+export interface ShorcutsBind {
   keyboardKey: KeyboardKey[];
   handler: (e: KeyboardEvent) => void;
 }

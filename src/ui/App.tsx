@@ -1,5 +1,6 @@
 import { Smile } from 'lucide-react';
 import { CheckBox } from './components/base-components/CheckBox/CheckBox';
+import { useGlobalShortcuts } from './hooks/useGlobalShortcuts';
 
 function App() {
   const handleMax = () => {
@@ -9,6 +10,16 @@ function App() {
   const handleMin = () => {
     window.electron.sendFrameAction('minimize');
   };
+
+  useGlobalShortcuts(
+    [
+      {
+        keyboardKey: ['F12'],
+        handler: () => window.electron.sendFrameAction('toggleDevtools')
+      }
+    ],
+    undefined
+  );
 
   return (
     <>
