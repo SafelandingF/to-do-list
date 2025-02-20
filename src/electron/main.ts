@@ -10,7 +10,8 @@ const windowsCustomConfig: Electron.BrowserWindowConstructorOptions = {
   // height: 800,
 
   //frame == false 设置无边框 外面黑色的一圈线
-  // frame: false,
+  frame: false,
+  resizable: false, //禁止改变主窗口尺寸
   // titleBarStyle: 'hidden',
   webPreferences: {
     preload: getPreloadPath()

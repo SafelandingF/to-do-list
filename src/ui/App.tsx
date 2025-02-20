@@ -3,6 +3,7 @@ import { CheckBox } from './components/base-components/CheckBox/CheckBox';
 import { useGlobalShortcuts } from './hooks/useGlobalShortcuts';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import './App.css';
 
 function App() {
   const [nowDate, setNowData] = useState(dayjs());
@@ -44,8 +45,8 @@ function App() {
 
   return (
     <>
-      <div className="bg-sky-600">
-        <p>这是一段话</p>
+      <div className="bg-sky-600 handle-drag">
+        <p className="handle-drag">这是一段话</p>
         <button
           type="button"
           title="max"
