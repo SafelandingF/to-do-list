@@ -1,14 +1,35 @@
 import { Smile } from 'lucide-react';
 import { CheckBox } from './components/base-components/CheckBox/CheckBox';
 import { useGlobalShortcuts } from './hooks/useGlobalShortcuts';
+import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 
 function App() {
+  const [nowDate, setNowData] = useState(dayjs());
+
+  // 不加useEffect会导致定时器越来越多
+  useEffect(() => {
+    const timeInterval = setInterval(() => {
+      setNowData(dayjs());
+    }, 1000);
+    return () => {
+      clearInterval(timeInterval);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('nowDate', nowDate);
+  }, [nowDate]);
+
   const handleMax = () => {
     // window.electron.sendFrameAction('maximize');
     window.electron.sendFrameAction('maximize');
   };
   const handleMin = () => {
     window.electron.sendFrameAction('minimize');
+  };
+  const handleClose = () => {
+    window.electron.sendFrameAction('close');
   };
 
   useGlobalShortcuts(

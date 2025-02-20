@@ -32,6 +32,15 @@ app.on('ready', () => {
     electron.ipcMain.removeAllListeners('sendFrameAction');
   });
 });
+app.on('will-quit', (event) => {
+  event.preventDefault();
+});
+app.on('before-quit', (event) => {
+  event.preventDefault();
+});
+app.on('window-all-closed', () => {
+  console.log('window-all-closed');
+});
 
 const handleSendFrameAction = (mainWindow: BrowserWindow) => {
   const _handle = (_payload: frameWindowAction) => {
@@ -55,6 +64,10 @@ const handleSendFrameAction = (mainWindow: BrowserWindow) => {
   };
   return _handle;
 };
+
+// 客户端是可以获得时间的 不需要在服务端进行
+// const now = new Date();
+// console.log(`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
 
 // 这里自己封装主要是做类型约束的
 const ipcMainOn = <Key extends keyof EventPayLoadMapping>(
