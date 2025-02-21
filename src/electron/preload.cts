@@ -1,5 +1,3 @@
-import { Key } from 'readline';
-
 const electron = require('electron') as typeof Electron;
 
 electron.contextBridge.exposeInMainWorld('electron', {
