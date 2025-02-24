@@ -4,6 +4,7 @@ import { useGlobalShortcuts } from './hooks/useGlobalShortcuts';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import './App.css';
+import useGlobalConfig from './hooks/useGlobalConfig';
 
 function App() {
   // const [nowDate, setNowData] = useState(dayjs());
@@ -21,11 +22,13 @@ function App() {
   // useEffect(() => {
   //   console.log('nowDate', nowDate);
   // }, [nowDate]);
+  const globalConfig = useGlobalConfig();
 
   const handleMax = () => {
     // window.electron.sendFrameAction('maximize');
     window.electron.sendFrameAction('maximize');
     console.log('handleMax');
+    console.log(globalConfig.htmlFontSizeWithPx());
   };
   // const handleMin = () => {
   //   window.electron.sendFrameAction('minimize');
@@ -50,7 +53,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-sky-600 handle-drag box-border  w-2xs h-30 rounded-3xl">
+      <div className="bg-sky-600 box-border  w-[400px] h-30  rounded-3xl">
         <p className="handle-drag">这是一段话</p>
         <button
           type="button"
@@ -64,7 +67,7 @@ function App() {
           type="button"
           title="max"
           className=" w-10 h-10 bg-red-200 ml-5"
-          onClick={() => handleSetWindowSize({ width: 100, height: 100 })}
+          onClick={() => handleSetWindowSize({ width: 500, height: 500 })}
         >
           set
         </button>
