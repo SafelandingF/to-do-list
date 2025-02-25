@@ -1,7 +1,7 @@
 import { Smile } from 'lucide-react';
 import { CheckBox } from './components/base-components/CheckBox/CheckBox';
 import { useGlobalShortcuts } from './hooks/useGlobalShortcuts';
-import { useEffect, useState } from 'react';
+import { HtmlHTMLAttributes, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import './App.css';
 import useGlobalConfig from './hooks/useGlobalConfig';
@@ -50,16 +50,22 @@ function App() {
     ],
     undefined
   );
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
-      <div className="bg-sky-600 box-border  w-[400px] h-30  rounded-3xl">
+      <div
+        className="bg-sky-600 box-border  w-[400px] h-30  rounded-3xl"
+        ref={containerRef}
+      >
         <p className="handle-drag">这是一段话</p>
         <button
           type="button"
           title="max"
           className=" w-10 h-10 bg-red-200"
-          onClick={handleMax}
+          onClick={() =>
+            console.log(containerRef.current?.getBoundingClientRect())
+          }
         >
           max
         </button>
