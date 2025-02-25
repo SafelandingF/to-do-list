@@ -10,6 +10,7 @@ const useGetComponentSize = <T extends HTMLElement>(ref: RefObject<T>) => {
   useEffect(() => {
     if (!ref.current) return;
     const observer = new ResizeObserver((entries) => {
+      console.log(entries);
       const { width, height } = entries[0].contentRect;
       setSize({ width, height });
     });
