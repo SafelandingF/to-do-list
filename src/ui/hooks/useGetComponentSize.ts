@@ -6,17 +6,21 @@ interface ComponentSize {
 }
 
 const useGetComponentSize = <T extends HTMLElement>(ref: RefObject<T>) => {
-  const [size, setSize] = useState<ComponentSize>();
+  const [size, setSize] = useState<ComponentSize>({
+    width: 200,
+    height: 200
+  });
+
   useEffect(() => {
     if (!ref.current) return;
     const observer = new ResizeObserver((entries) => {
-      console.log(entries);
       const { width, height } = entries[0].contentRect;
       setSize({ width, height });
     });
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, [ref]);
+
   return size;
 };
 

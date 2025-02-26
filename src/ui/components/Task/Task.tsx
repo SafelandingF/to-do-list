@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface TaskProps {
+export interface TaskProps {
   task: string;
 
   isFinished: boolean;
