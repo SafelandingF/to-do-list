@@ -1,10 +1,11 @@
 import React from 'react';
 
 export interface TaskProps {
+  id: string; //mainKey use uuid
   task: string;
 
   isFinished: boolean;
-  isPinned?: boolean;
+  isPinned: boolean;
 
   startTime: string;
   endTime?: string;
