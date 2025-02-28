@@ -1,3 +1,4 @@
+//这里的handler其实应该是send函数 应该改个名字的
 const useElectronEventHandler = () => {
   const handleMax = () => {
     // window.electron.sendFrameAction('maximize');
