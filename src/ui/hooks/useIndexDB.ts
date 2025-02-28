@@ -3,6 +3,7 @@ import { TaskProps } from '../components/Task/Task';
 
 // 每次建表都会导致dataBaseVersion++
 // Db -> task_stroe
+//DB -> store -> objectStore -> index
 const useIndexDb = (dataBaseName: string) => {
   const initDb = async (): Promise<IDBPDatabase> => {
     const db = await openDB(dataBaseName, 1, {
@@ -69,14 +70,42 @@ const useIndexDb = (dataBaseName: string) => {
     return tasks;
   };
 
-  const getPinnedTask = async () => {
+  const getPinnedTasks = async () => {
     const _db = await initDb();
     const tx = _db.transaction('task', 'readonly');
+    const store = tx.objectStore('task');
+    const index = await store.index('isPinned');
+    const tasks = await index.getAll(IDBKeyRange.only(1));
     await tx.done;
+
+    return tasks;
+  };
+
+  const getFinishedTasks = async () => {
+    const db = await initDb();
+    const tx = db.transaction('task', 'readonly');
+    const store = tx.objectStore('task');
+    const index = store.index('isFinished');
+    const tasks = await index.getAll(IDBKeyRange.only(1));
+    await tx.done;
+    return tasks;
   };
 
   const clearDB = async () => {
     await deleteDB(dataBaseName);
+  };
+
+  const iterateDb = async (fn: (Task: TaskProps) => void) => {
+    const db = await initDb();
+    const tx = db.transaction('task', 'readwrite');
+    const store = tx.objectStore('task');
+    let cursor = await store.openCursor();
+    while (cursor) {
+      const _task = cursor.value;
+      fn(_task);
+      cursor = await cursor.continue();
+    }
+    await tx.done;
   };
 
   return {
@@ -85,8 +114,10 @@ const useIndexDb = (dataBaseName: string) => {
     addTasks,
     updateTask,
     updateTasks,
-    getPinnedTask,
+    getPinnedTasks,
+    getFinishedTasks,
     getAllTasks,
+    iterateDb,
     clearDB
   };
 };
