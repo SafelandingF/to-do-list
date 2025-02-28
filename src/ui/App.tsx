@@ -12,12 +12,6 @@ function App() {
   const { setNewWindowSize } = useGlobalConfig();
   const mainWinodSize = useGetComponentSize(containerRef);
 
-  //实现动态调整electron大小 加上setNewWindowsSize依赖会导致循环
-  useEffect(() => {
-    setNewWindowSize(mainWinodSize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainWinodSize]);
-
   useGlobalShortcuts(
     [
       {
@@ -27,28 +21,37 @@ function App() {
     ],
     undefined
   );
-  const testMainDB = useIndexDb('test');
-  testMainDB.clearDB();
 
-  const show = async () => {
-    await testMainDB.addTask({
-      id: crypto.randomUUID(),
-      task: 'test1',
-      isFinished: 0,
-      isPinned: 0,
-      startTime: ''
-    });
-    await testMainDB.addTask({
-      id: crypto.randomUUID(),
-      task: 'test2',
-      isFinished: 1,
-      isPinned: 1,
-      startTime: ''
-    });
-    console.log(await testMainDB.getPinnedTasks());
-    console.log(await testMainDB.getAllTasks());
-  };
-  show();
+  //实现动态调整electron大小 加上setNewWindowsSize依赖会导致循环
+  // useEffect(() => {
+  //   setNewWindowSize(mainWinodSize);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [mainWinodSize]);
+
+  // const testMainDB = useIndexDb('test');
+  // testMainDB.clearDB();
+
+  // const show = async () => {
+  //   await testMainDB.addTask({
+  //     id: crypto.randomUUID(),
+  //     task: 'test1',
+  //     isFinished: 0,
+  //     isPinned: 0,
+  //     startTime: ''
+  //   });
+  //   await testMainDB.addTask({
+  //     id: crypto.randomUUID(),
+  //     task: 'test2',
+  //     isFinished: 1,
+  //     isPinned: 1,
+  //     startTime: ''
+  //   });
+  //   console.log(await testMainDB.getPinnedTasks());
+  //   console.log(await testMainDB.getAllTasks());
+  // };
+  // show();
+
+  // window.electron.handleCheckOverdueTask((now) => console.log(now));
 
   return (
     <>

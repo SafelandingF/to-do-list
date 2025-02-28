@@ -3,6 +3,7 @@ import { isDev } from './utils/env.js';
 import electron from 'electron';
 import windowsCustomConfig from './config/mainWindowConfig.js';
 import setAppTray from './config/appTrayConfig.js';
+import dayjs from 'dayjs';
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow(windowsCustomConfig);
@@ -16,7 +17,8 @@ app.on('ready', () => {
   }
 
   ipcMainOn('sendFrameAction', handleSendFrameAction(mainWindow));
-  ipcMainOn('setWindowSize', handleSetWindowSize(mainWindow));
+  ipcMainOn('sendSetWindowSize', handleSetWindowSize(mainWindow));
+  shouldCheckOverdueTasks(mainWindow);
 
   mainWindow.on('closed', () => {
     electron.ipcMain.removeAllListeners('sendFrameAction');
@@ -74,4 +76,19 @@ const ipcMainOn = <Key extends keyof EventPayLoadMapping>(
   electron.ipcMain.on(key, (_, palyLoad) => {
     handler(palyLoad);
   });
+};
+
+const shouldCheckOverdueTasks = (browserWindow: BrowserWindow) => {
+  setInterval(() => {
+    const now = dayjs().format('YYYY-MM-DD:mm:ss');
+    ipcMainSend('handleCheckOverdueTask', now, browserWindow);
+  }, 5 * 1000);
+};
+
+const ipcMainSend = <Key extends keyof EventPayLoadMapping>(
+  key: Key,
+  palyLoad: EventPayLoadMapping[Key],
+  BrowserWindow: BrowserWindow
+) => {
+  BrowserWindow?.webContents.send(key, palyLoad);
 };

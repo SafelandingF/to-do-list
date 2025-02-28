@@ -10,7 +10,7 @@ const useElectronEventHandler = () => {
     window.electron.sendFrameAction('close');
   };
   const handleSetWindowSize = (payload: FrameWindowSize) => {
-    window.electron.setWindowSize(payload);
+    window.electron.sendSetWindowSize(payload);
     console.log('handleSetWindowSize', payload);
   };
   return {

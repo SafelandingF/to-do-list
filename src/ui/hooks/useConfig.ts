@@ -38,7 +38,7 @@ const useGlobalConfig = () => {
   };
 
   const _handleSetWindowSize = (payload: FrameWindowSize) => {
-    window.electron?.setWindowSize(payload);
+    window.electron?.sendSetWindowSize(payload);
   };
 
   return {

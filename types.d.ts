@@ -3,13 +3,17 @@
 interface Window {
   electron: {
     sendFrameAction: (action: FrameWindowAction) => void;
-    setWindowSize: (size: FrameWindowSize) => void;
+    sendSetWindowSize: (size: FrameWindowSize) => void;
+    handleCheckOverdueTask: (cb: (nowTime: nowTime) => void) => Unsubscribe;
   };
 }
 
+// 我觉得是不是send和on事件应该分开呢？
+
 interface EventPayLoadMapping {
   sendFrameAction: FrameWindowAction;
-  setWindowSize: FrameWindowSize;
+  sendSetWindowSize: FrameWindowSize;
+  handleCheckOverdueTask: nowTime;
 }
 
 // close 关闭当前窗口 quit 退出整个应用
@@ -20,3 +24,7 @@ type FrameWindowSize = {
   width: number;
   height: number;
 };
+type nowTime = string;
+type Unsubscribe = () => void;
+
+type OnCheckOverdueTask = (cb: (nowTime: string) => void) => Unsubscribe;
