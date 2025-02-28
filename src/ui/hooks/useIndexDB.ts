@@ -1,5 +1,5 @@
 import { deleteDB, IDBPDatabase, openDB } from 'idb';
-import { TaskProps } from '../components/Task/Task';
+import { Task } from '../components/Task/Task';
 
 // 每次建表都会导致dataBaseVersion++
 // Db -> task_stroe
@@ -20,12 +20,15 @@ const useIndexDb = (dataBaseName: string) => {
         if (store && !store?.indexNames.contains('isFinished')) {
           store.createIndex('isFinished', 'isFinished', { unique: false });
         }
+        if (store && !store?.indexNames.contains('isOverdue')) {
+          store.createIndex('isOverdue', 'isOverdue', { unique: false });
+        }
       }
     });
     return db;
   };
 
-  const addTask = async (Task: TaskProps) => {
+  const addTask = async (Task: Task) => {
     const _db = await initDb();
     const tx = _db.transaction('task', 'readwrite');
     const store = tx.objectStore('task');
@@ -33,7 +36,7 @@ const useIndexDb = (dataBaseName: string) => {
     await tx.done;
   };
 
-  const addTasks = async (Tasks: TaskProps[]) => {
+  const addTasks = async (Tasks: Task[]) => {
     const _db = await initDb();
     const tx = _db.transaction('task', 'readwrite');
     const store = tx.objectStore('task');
@@ -43,7 +46,7 @@ const useIndexDb = (dataBaseName: string) => {
     await tx.done;
   };
 
-  const updateTask = async (Task: TaskProps) => {
+  const updateTask = async (Task: Task) => {
     const _db = await initDb();
     const tx = _db.transaction('task', 'readwrite');
     const store = tx.objectStore('task');
@@ -51,7 +54,7 @@ const useIndexDb = (dataBaseName: string) => {
     await tx.done;
   };
 
-  const updateTasks = async (Tasks: TaskProps[]) => {
+  const updateTasks = async (Tasks: Task[]) => {
     const _db = await initDb();
     const tx = _db.transaction('task', 'readwrite');
     const store = tx.objectStore('task');
@@ -91,11 +94,31 @@ const useIndexDb = (dataBaseName: string) => {
     return tasks;
   };
 
+  const getUnfinishedTasks = async () => {
+    const db = await initDb();
+    const tx = db.transaction('task', 'readonly');
+    const store = tx.objectStore('task');
+    const index = store.index('isFinished');
+    const tasks = await index.getAll(IDBKeyRange.only(0));
+    await tx.done;
+    return tasks;
+  };
+
+  const getOverDueTasks = async () => {
+    const db = await initDb();
+    const tx = db.transaction('task', 'readonly');
+    const store = tx.objectStore('task');
+    const index = store.index('isOverdue');
+    const tasks = await index.getAll(IDBKeyRange.only(1));
+    await tx.done;
+    return tasks;
+  };
+
   const clearDB = async () => {
     await deleteDB(dataBaseName);
   };
 
-  const iterateDb = async (fn: (Task: TaskProps) => void) => {
+  const iterateDb = async (fn: (Task: Task) => void) => {
     const db = await initDb();
     const tx = db.transaction('task', 'readwrite');
     const store = tx.objectStore('task');
@@ -116,6 +139,8 @@ const useIndexDb = (dataBaseName: string) => {
     updateTasks,
     getPinnedTasks,
     getFinishedTasks,
+    getOverDueTasks,
+    getUnfinishedTasks,
     getAllTasks,
     iterateDb,
     clearDB

@@ -80,7 +80,7 @@ const ipcMainOn = <Key extends keyof EventPayLoadMapping>(
 
 const shouldCheckOverdueTasks = (browserWindow: BrowserWindow) => {
   setInterval(() => {
-    const now = dayjs().format('YYYY-MM-DD:mm:ss');
+    const now = dayjs().format('YYYY-MM-DD HH:mm:ss');
     ipcMainSend('handleCheckOverdueTask', now, browserWindow);
   }, 5 * 1000);
 };

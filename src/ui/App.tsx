@@ -5,6 +5,7 @@ import useGlobalConfig from './hooks/useConfig';
 import useGetComponentSize from './hooks/useElementSize';
 import { deleteDB, openDB } from 'idb';
 import useIndexDb from './hooks/useIndexDB';
+import dayjs from 'dayjs';
 
 function App() {
   const [element, setElement] = useState(['name1']);
@@ -52,6 +53,14 @@ function App() {
   // show();
 
   // window.electron.handleCheckOverdueTask((now) => console.log(now));
+
+  const time = dayjs().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss');
+  window.electron.handleCheckOverdueTask((now) => {
+    const ans = dayjs(time).isBefore(now);
+    console.log(time);
+    console.log(now);
+    console.log(ans);
+  });
 
   return (
     <>

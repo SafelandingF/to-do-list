@@ -1,9 +1,9 @@
 import { create } from 'zustand';
-import { TaskProps } from '../components/Task/Task';
+import { Task } from '../components/Task/Task';
 
 interface TasksStoreState {
   DataBase: string;
-  Task: TaskProps[];
+  Task: Task[];
 }
 type State = {
   tasksSort: TasksStoreState[];
