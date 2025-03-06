@@ -16,10 +16,12 @@ app.on('ready', () => {
     mainWindow.loadFile('./dist/index.html');
   }
 
-  // session.defaultSession
-  //   .loadExtension('C:/Users/Mi/VsProject/my-devtools-for-electron')
-  //   .then(({ id }) => console.log(id))
-  //   .catch((error) => console.error(error));
+  session.defaultSession
+    .loadExtension('C:/Users/Mi/VsProject/to-do-list/src/devtools-test', {
+      allowFileAccess: true
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
 
   ipcMainOn('sendFrameAction', handleSendFrameAction(mainWindow));
   ipcMainOn('sendSetWindowSize', handleSetWindowSize(mainWindow));

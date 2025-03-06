@@ -5,7 +5,7 @@ const electron = require('electron') as typeof Electron;
 const __devtron = require('devtron');
 const fs = require('fs');
 
-electron.ipcRenderer.on('test', (_, data) => console.log(data));
+// electron.ipcRenderer.on('test', (_, data) => console.log(data));
 console.log(electron.ipcRenderer.eventNames());
 
 electron.contextBridge.exposeInMainWorld('electron', {

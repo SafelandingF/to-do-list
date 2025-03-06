@@ -36,6 +36,7 @@ const windowsCustomConfig: Electron.BrowserWindowConstructorOptions = {
   webPreferences: {
     preload: getPreloadPath(),
     // 为渲染进程提供node能力
+    plugins: true,
     nodeIntegration: true,
     contextIsolation: true
   }
