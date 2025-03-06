@@ -12,7 +12,7 @@ const useElectronEventHandler = () => {
   };
   const handleSetWindowSize = (payload: FrameWindowSize) => {
     window.electron.sendSetWindowSize(payload);
-    console.log('handleSetWindowSize', payload);
+    // console.log('handleSetWindowSize', payload);
   };
   return {
     handleMax,

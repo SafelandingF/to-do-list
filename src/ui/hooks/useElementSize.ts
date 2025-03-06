@@ -7,8 +7,8 @@ interface ComponentSize {
 
 const useGetComponentSize = <T extends HTMLElement>(ref: RefObject<T>) => {
   const [size, setSize] = useState<ComponentSize>({
-    width: 500,
-    height: 500
+    width: 1000,
+    height: 1000
   });
 
   useEffect(() => {

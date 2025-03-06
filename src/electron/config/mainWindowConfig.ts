@@ -34,9 +34,10 @@ const windowsCustomConfig: Electron.BrowserWindowConstructorOptions = {
   icon: path.join(getAssetsPath(), 'icon.ico'),
   title: 'To-Do List',
   webPreferences: {
-    preload: getPreloadPath()
+    preload: getPreloadPath(),
     // 为渲染进程提供node能力
-    // nodeIntegration: true,
+    nodeIntegration: true,
+    contextIsolation: true
   }
 };
 

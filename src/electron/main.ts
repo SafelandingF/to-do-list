@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, session } from 'electron';
 import { isDev } from './utils/env.js';
 import electron from 'electron';
 import windowsCustomConfig from './config/mainWindowConfig.js';
@@ -16,6 +16,11 @@ app.on('ready', () => {
     mainWindow.loadFile('./dist/index.html');
   }
 
+  // session.defaultSession
+  //   .loadExtension('C:/Users/Mi/VsProject/my-devtools-for-electron')
+  //   .then(({ id }) => console.log(id))
+  //   .catch((error) => console.error(error));
+
   ipcMainOn('sendFrameAction', handleSendFrameAction(mainWindow));
   ipcMainOn('sendSetWindowSize', handleSetWindowSize(mainWindow));
   shouldCheckOverdueTasks(mainWindow);
@@ -27,6 +32,8 @@ app.on('ready', () => {
   mainWindow.getContentSize();
   // const { x, y } = mainWindow.getBounds();
   console.log(mainWindow.getBounds(), mainWindow.getContentSize());
+  console.log('ipcMain', electron.ipcMain.eventNames());
+  // console.log('ipcRenderer', electron.ipcRenderer.eventNames());
 });
 app.on('will-quit', (event) => {
   event.preventDefault();

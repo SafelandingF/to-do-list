@@ -6,6 +6,11 @@ interface Window {
     sendSetWindowSize: (size: FrameWindowSize) => void;
     handleCheckOverdueTask: (cb: (nowTime: nowTime) => void) => Unsubscribe;
   };
+  __devtron?: {
+    require: unknown;
+    process: unknown;
+  };
+  node?: unknown;
 }
 
 // 我觉得是不是send和on事件应该分开呢？

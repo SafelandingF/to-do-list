@@ -54,23 +54,26 @@ function App() {
 
   // window.electron.handleCheckOverdueTask((now) => console.log(now));
 
-  const time = dayjs().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss');
-  window.electron.handleCheckOverdueTask((now) => {
-    const ans = dayjs(time).isBefore(now);
-    console.log(time);
-    console.log(now);
-    console.log(ans);
-  });
+  // const time = dayjs().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss');
+  // window.electron.handleCheckOverdueTask((now) => {
+  //   const ans = dayjs(time).isBefore(now);
+  //   console.log(time);
+  //   console.log(now);
+  //   console.log(ans);
+  // });
 
   return (
     <>
-      <div className="bg-sky-600 box-border rounded-3xl" ref={containerRef}>
+      <div
+        className="bg-sky-600 box-border rounded-3xl w-[1000px] h-[1000px]"
+        ref={containerRef}
+      >
         <p className="handle-drag">这是一段话</p>
         <button
           type="button"
           title="max"
           className=" w-10 h-10 bg-red-200"
-          onClick={() => console.log(crypto.randomUUID())}
+          onClick={() => window.electron.sendFrameAction('maximize')}
         >
           max
         </button>
@@ -78,7 +81,7 @@ function App() {
           type="button"
           title="max"
           className=" w-10 h-10 bg-red-200"
-          onClick={() => console.log(mainWinodSize?.height)}
+          onClick={() => window.electron.sendFrameAction('minimize')}
         >
           max
         </button>
