@@ -12,7 +12,7 @@ function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { setNewWindowSize } = useGlobalConfig();
   const mainWinodSize = useGetComponentSize(containerRef);
-
+  // 213
   useGlobalShortcuts(
     [
       {
