@@ -6,6 +6,7 @@ import useGetComponentSize from './hooks/useElementSize';
 import { deleteDB, openDB } from 'idb';
 import useIndexDb from './hooks/useIndexDB';
 import dayjs from 'dayjs';
+import Layout from './layout';
 
 function App() {
   const [element, setElement] = useState(['name1']);
@@ -61,41 +62,16 @@ function App() {
   //   console.log(ans);
   // });
 
+  const [isFold, setIsFold] = useState(false);
+
+  const handleSetFold = () => {
+    setIsFold(!isFold);
+    console.log('fold');
+  };
+
   return (
     <>
-      <div
-        className="bg-sky-600 box-border rounded-3xl w-[1000px] h-[1000px]"
-        ref={containerRef}
-      >
-        <p className="handle-drag">这是一段话</p>
-        <button
-          type="button"
-          title="max"
-          className=" w-10 h-10 bg-red-200"
-          onClick={() => window.electron.sendFrameAction('maximize')}
-        >
-          max
-        </button>
-        <button
-          type="button"
-          title="max"
-          className=" w-10 h-10 bg-red-200"
-          onClick={() => window.electron.sendFrameAction('minimize')}
-        >
-          max
-        </button>
-        <button
-          type="button"
-          title="max"
-          className=" w-10 h-10 bg-red-200 ml-5"
-          onClick={() => setElement(element.concat('name2'))}
-        >
-          set
-        </button>
-        {element.map((item, index) => {
-          return <div key={index}>{item}</div>;
-        })}
-      </div>
+      <Layout isFold={isFold} handleFold={handleSetFold}></Layout>
     </>
   );
 }
