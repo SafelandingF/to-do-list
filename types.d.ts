@@ -13,6 +13,14 @@ interface Window {
   node?: unknown;
 }
 
+interface Config {
+  version: string;
+  color:string;
+  isAutoLaunch: boolean;
+  // 设置初始的显示状态
+  initValue?:string
+}
+
 // 我觉得是不是send和on事件应该分开呢？
 
 interface EventPayLoadMapping {

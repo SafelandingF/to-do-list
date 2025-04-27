@@ -11,12 +11,13 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "transpile:electron": "tsc --project src/electron/tsconfig.json"
+    "transpile:electron": "node src/scripts/moveConfig.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.3",
     "@types/chrome": "^0.0.308",
     "@types/crypto-js": "^4.2.2",
+    "auto-launch": "^5.0.6",
     "axios": "^1.7.9",
     "cross-env": "^7.0.3",
     "crypto-js": "^4.2.0",
