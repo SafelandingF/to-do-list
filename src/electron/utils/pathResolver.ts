@@ -5,7 +5,6 @@ import { isDev } from './env.js';
 const __dirname = import.meta.dirname;
 
 export const getPreloadPath = () => {
-  console.log(import.meta.dirname);
   return path.join(
     app.getAppPath(),
     isDev() ? '.' : '..',
@@ -13,6 +12,15 @@ export const getPreloadPath = () => {
     'preload.cjs'
   );
 };
+
+export const getConfigPath = () =>{
+  return path.join(
+    app.getAppPath(),
+    isDev() ? '.' : '..',
+    'dist-electron',
+    'config.json'
+  );
+}
 
 // tsc transpile 无法迁移文件内的assets路径所以将其放到最外侧
 export const getAssetsPath = () => {

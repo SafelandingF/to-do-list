@@ -4,9 +4,27 @@ import electron from 'electron';
 import windowsCustomConfig from './config/mainWindowConfig.js';
 import setAppTray from './config/appTrayConfig.js';
 import dayjs from 'dayjs';
+import { readConfig } from './utils/readConfig.js';
+
+// //@ts-expect-error
+// import AutoLaunch from 'auto-launch';
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow(windowsCustomConfig);
+  console.log(1233)
+
+
+  readConfig().then((config)=>{
+    console.log(config)
+    
+    // const autoLaunch = new AutoLaunch({
+    //   name: 'Minecraft',
+    //   path: '/Applications/Minecraft.app',
+    // })
+    // autoLaunch.enable()
+    // autoLaunch.disable()
+  })
+
   setAppTray();
   // 也可以通过这个方式来设置图标
   // mainWindow.setIcon(path.join(getAssetsPath(), 'icon.ico'));
