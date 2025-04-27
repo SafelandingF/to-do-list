@@ -24,10 +24,11 @@ function App() {
   );
 
   //实现动态调整electron大小 加上setNewWindowsSize依赖会导致循环
-  // useEffect(() => {
-  //   setNewWindowSize(mainWinodSize);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [mainWinodSize]);
+  useEffect(() => {
+    console.log(mainWinodSize);
+    setNewWindowSize(mainWinodSize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainWinodSize]);
 
   // const testMainDB = useIndexDb('test');
   // testMainDB.clearDB();
@@ -68,6 +69,44 @@ function App() {
     setIsFold(!isFold);
     console.log('fold');
   };
+
+  // return (
+  //   <>
+  //     <div
+  //       className="bg-transparent box-border rounded-3xl w-[1000px] h-[1000px]"
+  //       ref={containerRef}
+  //     >
+  //       <p className="handle-drag">这是一段话</p>
+  //       <button
+  //         type="button"
+  //         title="max"
+  //         className=" w-10 h-10 bg-red-200"
+  //         onClick={() => window.electron.sendFrameAction('maximize')}
+  //       >
+  //         max
+  //       </button>
+  //       <button
+  //         type="button"
+  //         title="max"
+  //         className=" w-10 h-10 bg-red-200"
+  //         onClick={() => window.electron.sendFrameAction('minimize')}
+  //       >
+  //         max
+  //       </button>
+  //       <button
+  //         type="button"
+  //         title="max"
+  //         className=" w-10 h-10 bg-red-200 ml-5"
+  //         onClick={() => setElement(element.concat('name2'))}
+  //       >
+  //         set
+  //       </button>
+  //       {element.map((item, index) => {
+  //         return <div key={index}>{item}</div>;
+  //       })}
+  //     </div>
+  //   </>
+  // );
 
   return (
     <>

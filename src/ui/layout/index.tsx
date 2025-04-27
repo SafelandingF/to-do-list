@@ -13,16 +13,17 @@ interface LayoutProps {
 const Layout = (props?: LayoutProps) => {
   return (
     <>
-      <div className=" bg-zinc-800">
+      <div className="">
         <div>
-          <SidebarProvider open={props?.isFold} defaultOpen={false}>
-            <AppSidebar></AppSidebar>
-            <main>
-              <button className=" bg-neutral-200" onClick={props?.handleFold}>
-                buttons
-              </button>
-              {props?.children}
-            </main>
+          <SidebarProvider
+            open={props?.isFold}
+            defaultOpen={false}
+            className="h-auto"
+          >
+            <AppSidebar
+              handleFold={props?.handleFold}
+              isFold={props?.isFold}
+            ></AppSidebar>
           </SidebarProvider>
         </div>
       </div>
