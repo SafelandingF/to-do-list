@@ -5,7 +5,7 @@
 
 html {
   overflow: hidden;
-  background-color: #222222;
+  background-color: transparent;
 }
 
 @theme inline {
@@ -46,6 +46,9 @@ html {
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+
+/* tail 和 shadcn 给body添加了默认颜色导致添加失效  */
+/* 删除这里的 --background 就可以完全设置成透明的了  */
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

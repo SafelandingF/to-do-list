@@ -16,7 +16,8 @@ const windowsCustomConfig: Electron.BrowserWindowConstructorOptions = {
   fullscreenable: true,
 
   //可以使整个窗口变透明 只显示内容
-  transparent: true,
+  transparent: true,  // 必须设置为true
+  backgroundColor: '#00000000', // 使用RGBA格式设置完全透明
   /**
    * useContentSize boolean (optional) - The width and height would be used as web page's size,
    * which means the actual window's size will include window frame's size and be slightly larger.
